@@ -1,0 +1,5 @@
+from models.llm_factory import GeminiModel
+from prompts.topic_prompt_template import explanation_prompt
+from parsers.explaination_parser import explanation_parser
+
+explanation_chain = explanation_prompt|GeminiModel|explanation_parser

@@ -1,5 +1,5 @@
 from langchain_core.prompts import PromptTemplate
-
+from parsers.explaination_parser import explanation_parser
 
 explanation_prompt = PromptTemplate(
     template="""
@@ -15,7 +15,7 @@ Explain according to the selected difficulty and language.
 """,
     input_variables=["topic", "difficulty", "language"],
     partial_variables={
-        "format_instructions": ''
+        "format_instructions": explanation_parser.get_format_instructions()
     }
 )
 

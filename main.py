@@ -1,4 +1,4 @@
-
+from chains.All_chains import explanation_chain
 
 difficulty_options = {
     "1": "Beginner",
@@ -23,7 +23,7 @@ print("1. Explaination")
 print("2. Quiz")
 print("3. notes")
 print('4. exit')
-
+topic = input('Please enter your topic : ')
 output_type = input('Select what you want : ')
 
 print("\nSelect Difficulty:")
@@ -51,6 +51,13 @@ if difficulty is None or language is None or type is None:
     print("\nInvalid selection!")
 else:
     print("\nSelected Options:")
+    print('Topic : ',topic)
     print("Difficulty:", difficulty)
     print("Language:", language)
     print("output type : ",type)
+output =   explanation_chain.invoke({
+        "topic": topic,
+        "difficulty":difficulty,
+        "language": language,
+    })
+print(output)
