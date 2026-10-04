@@ -1,36 +1,42 @@
 # AI Study Assistant
 
 AI Study Assistant is a command-line learning tool that uses LangChain and
-Google Gemini to explain study topics in a structured format.
+Google Gemini to create structured, personalized learning content from a
+student's topic.
 
 ## Features
 
-- Choose a study topic from the terminal.
-- Select a difficulty level:
+- Enter any study topic from the terminal.
+- Select a difficulty level to adjust the response:
   - Beginner
   - Intermediate
   - Advanced
-- Select an output language:
+- Select a response language:
   - English
   - Roman Urdu
   - Simple English
-- Receive a structured response containing:
-  - Definition
-  - Detailed explanation
-  - Practical example
-  - Real-life benefit
-  - Applications
+- Choose one of three learning modes:
+  - **Explain Topic** - Provides a definition, detailed explanation, practical
+    example, real-life benefit, and applications.
+  - **Generate Notes** - Creates a definition, important concepts, key points,
+    examples, and a short summary.
+  - **Generate Quiz** - Creates five multiple-choice questions with four
+    options per question and the correct answers.
+- Parse Gemini responses into predictable Pydantic models for structured output.
+- Route each request to the matching LangChain workflow with a conditional
+  runnable.
 
 ## Project structure
 
 ```text
 Ai_Study_Assistant/
-├── chains/                  # LangChain pipelines
-├── models/                  # LLM configuration
-├── parsers/                 # Structured output schemas
-├── prompts/                 # Prompt templates
-├── main.py                  # Command-line entry point
-├── .env.example             # Example environment configuration
+├── chains/                    # Explanation, notes, and quiz pipelines
+├── models/                    # Gemini model configuration
+├── parsers/                   # Pydantic structured-output schemas
+├── prompts/                   # Prompt templates for each learning mode
+├── runnables/                 # Conditional workflow routing
+├── main.py                    # Command-line entry point
+├── .env.example               # Example environment configuration
 └── README.md
 ```
 
@@ -67,11 +73,14 @@ python main.py
 
 Then follow the prompts in the terminal.
 
-## Current status
+## How it works
 
-The explanation workflow is implemented with Gemini and structured Pydantic
-output parsing. The command-line menu includes options for explanations,
-quizzes, and notes; quiz and notes workflows are planned for a future update.
+1. `main.py` collects the topic, output type, difficulty, and language.
+2. Prompt templates prepare the request for the selected learning mode.
+3. `RunnableBranch` routes the request to the explanation, notes, or quiz
+   chain.
+4. Google Gemini generates the content.
+5. A Pydantic output parser validates and structures the response.
 
 ## Contributing
 
