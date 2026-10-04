@@ -1,4 +1,4 @@
-from chains.All_chains import explanation_chain
+from  runnables.condtional_runnable import condition_runnable
 
 difficulty_options = {
     "1": "Beginner",
@@ -14,16 +14,18 @@ language_options = {
 doc_type = {
     "1": "Explain Topic",
     "2": "Generate Notes",
-    "3": "Generate MCQs",
+    "3": "Generate Quiz",
     "4": "Exit"
 }
+
+topic = input('Please enter your topic : ')
 
 print("\nSelect Language:")
 print("1. Explaination")
 print("2. Quiz")
 print("3. notes")
 print('4. exit')
-topic = input('Please enter your topic : ')
+
 output_type = input('Select what you want : ')
 
 print("\nSelect Difficulty:")
@@ -55,9 +57,10 @@ else:
     print("Difficulty:", difficulty)
     print("Language:", language)
     print("output type : ",type)
-output =   explanation_chain.invoke({
-        "topic": topic,
-        "difficulty":difficulty,
-        "language": language,
-    })
-print(output)
+result = condition_runnable.invoke({
+    "output_type": type,
+    "topic": topic,
+    "difficulty": difficulty,
+    "language": language
+})
+print(result)

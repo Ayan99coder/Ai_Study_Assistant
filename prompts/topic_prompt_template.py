@@ -1,5 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 from parsers.explaination_parser import explanation_parser
+from parsers.notes_parser import notes_parser
+from parsers.quiz_parser import quiz_parser
 
 explanation_prompt = PromptTemplate(
     template="""
@@ -44,7 +46,7 @@ Each question must have:
         "language"
     ],
     partial_variables={
-        "format_instructions": 'parser.get_format_instructions()'
+        "format_instructions": quiz_parser.get_format_instructions()
     }
 )
 notes_prompt = PromptTemplate(
@@ -73,34 +75,6 @@ Include:
         "language"
     ],
     partial_variables={
-        "format_instructions": "{format_instructions}"
-    }
-)
-mcq_prompt = PromptTemplate(
-    template="""
-You are an expert teacher.
-
-Generate 5 multiple-choice questions about the following topic.
-
-Topic: {topic}
-Difficulty: {difficulty}
-Language: {language}
-
-Each question must contain:
-- A question
-- Exactly 4 options
-- One correct answer
-
-Make the questions suitable for the selected difficulty.
-
-{format_instructions}
-""",
-    input_variables=[
-        "topic",
-        "difficulty",
-        "language"
-    ],
-    partial_variables={
-        "format_instructions": "{format_instructions}"
+        "format_instructions": notes_parser.get_format_instructions()
     }
 )

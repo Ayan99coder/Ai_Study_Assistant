@@ -1,5 +1,9 @@
 from models.llm_factory import GeminiModel
-from prompts.topic_prompt_template import explanation_prompt
+from prompts.topic_prompt_template import explanation_prompt,quiz_prompt,notes_prompt
 from parsers.explaination_parser import explanation_parser
+from parsers.quiz_parser import quiz_parser
+from parsers.notes_parser import notes_parser
 
 explanation_chain = explanation_prompt|GeminiModel|explanation_parser
+quiz_chain = quiz_prompt|GeminiModel|quiz_parser
+notes_chain = notes_prompt|GeminiModel|notes_parser
